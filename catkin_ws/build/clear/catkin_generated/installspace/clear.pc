@@ -1,8 +1,0 @@
-prefix=/home/sakson/catkin_ws/install
-
-Name: clear
-Description: Description of clear
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
