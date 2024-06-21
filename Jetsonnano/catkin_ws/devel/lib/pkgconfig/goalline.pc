@@ -1,0 +1,8 @@
+prefix=/home/sakson/catkin_ws/devel
+
+Name: goalline
+Description: Description of goalline
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp actionlib move_base_msgs

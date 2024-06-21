@@ -1,0 +1,8 @@
+prefix=/home/sakson/catkin_ws/devel
+
+Name: goal
+Description: Description of goal
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

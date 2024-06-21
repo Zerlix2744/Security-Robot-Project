@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "iostream": "cpp",
+        "robot_odom_mecanum_imu_radiencpp": "cpp"
+    }
+}

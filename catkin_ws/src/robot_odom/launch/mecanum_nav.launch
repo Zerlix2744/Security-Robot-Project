@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<launch>
+	<master auto="start"/>
+
+ 
+	<!-- Lidar run node --> 
+  	<node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+		<param name="scan_mode"           type="string"  value="Standard"/>
+		<param name="serial_port"         type="string" value="/dev/ttyUSB0"/>
+		<param name="serial_baudrate"     type="int"    value="115200"/><!--A1/A2 -->
+		<param name="frame_id"            type="string" value="laser"/>
+		<param name="inverted"            type="bool"   value="false"/>
+		<param name="angle_compensate"    type="bool"   value="true"/>
+  	</node>
+
+
+
+	<!-- Robot State -->
+  	<!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/> -->
+
+	<!-- tf laser base_link --> 
+	<node pkg="tf" type="static_transform_publisher" name="laser_link" args="0 0 0.35 0 0 0  base_link laser 10" />
+	<!-- <node pkg="tf" type="static_transform_publisher" name="laser_link" args="0 0 0.2 0 0 0  base_link laser 100" /> -->
+	<!-- <node pkg="tf" type="static_transform_publisher" name="laser_link" args="0 0 0.2 0 0 0  base_link laser 100" /> -->
+
+	<!-- for /cmd_wheel arduino --> 
+	<node name="serial_node_twis"        pkg="rosserial_python"      type="serial_node.py">
+    		<param name="port"              type="string"               value="/dev/ttyACM0"/>
+    		<param name="baud"              type="int"                  value="9600"/>
+    	</node>
+
+
+     <!-- AMCL -->
+    <include file="$(find robot_odom)/launch/amcl.launch"/>
+
+    <!-- move_base -->
+    <include file="$(find robot_odom)/launch/move_base.launch">
+    </include>
+
+    <!-- rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find robot_odom)/rviz/turtlebot3_navigation.rviz"/>
+
+
+
+	<arg name="cmd_vel_topic" default="/cmd_vel" />
+	<arg name="odom_topic" default="odom" />
+	<node name="odom_enc" pkg="robot_odom" type="odom_enc"/>
+	<!-- <node name="rviz" pkg="rviz" type="rviz" args="/config/rviz_config_nav.rviz"/> -->
+	
+	
+</launch>
+
